@@ -30,8 +30,11 @@ namespace ExampleApp
       void fillUI();
 
       // UI elements.
-      QWidgetListWidget* _list = nullptr;
-      QWidgetScrollListWidget* _scrollList = nullptr;
+      QWidgetListWidget* _list1 = nullptr;
+      QWidgetScrollListWidget* _scrollList1 = nullptr;
+
+      QWidgetListWidget* _list2 = nullptr;
+      QWidgetScrollListWidget* _scrollList2 = nullptr;
    };
 }
 

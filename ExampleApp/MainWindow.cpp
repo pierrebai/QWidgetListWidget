@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "ExampleListItem.h"
 
+#include <QtWidgets/qboxlayout.h>
+
 namespace ExampleApp
 {
    using namespace QtAdditions;
@@ -23,11 +25,21 @@ namespace ExampleApp
 
    void MainWindow::buildUI()
    {
-      _list = new QWidgetListWidget;
-      _list->setAcceptDrops(true);
-      _scrollList = new QWidgetScrollListWidget(_list);
+      auto container = new QWidget;
+      auto layout = new QHBoxLayout;
+      container->setLayout(layout);
 
-      setCentralWidget(_scrollList);
+      _list1 = new QWidgetListWidget;
+      _list1->setAcceptDrops(true);
+      _scrollList1 = new QWidgetScrollListWidget(_list1);
+      layout->addWidget(_scrollList1);
+
+      _list2 = new QWidgetListWidget;
+      _list2->setAcceptDrops(true);
+      _scrollList2 = new QWidgetScrollListWidget(_list2);
+      layout->addWidget(_scrollList2);
+
+      setCentralWidget(container);
    }
 
    /////////////////////////////////////////////////////////////////////////
@@ -45,6 +57,6 @@ namespace ExampleApp
    void MainWindow::fillUI()
    {
       for (int i = 0; i < 10; ++i)
-         _list->addItem(new ExampleListItem(QString::asprintf("Item #%d", i+1)));
+         _list1->addItem(new ExampleListItem(QString::asprintf("Item #%d", i+1)));
    }
 }
