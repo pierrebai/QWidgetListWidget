@@ -7,6 +7,9 @@ The items can have any control put into them. The list widget supports scrolling
 
 An example app showing how to use the list widget is included.
 
+![example app](https://github.com/pierrebai/QWidgetListWidget/blob/master/list-widget.png "Example App")
+
+
 # Dependencies and Build 
 The project requires Qt. It was built using Qt 5.12. It uses CMake to build the project. CMake 3.16.4 was used.
 
