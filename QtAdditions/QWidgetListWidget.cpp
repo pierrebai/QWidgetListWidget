@@ -122,16 +122,22 @@ namespace QtAdditions
          _modifCallback(this);
    }
 
-   vector<QWidgetListItem*> QWidgetListWidget::getItems() const
+   vector<QWidgetListItem*> QWidgetListWidget::getItems(bool onlySelected) const
    {
       vector<QWidgetListItem*> widgets;
 
       const int c = _layout->count();
       for (int i = 0; i < c; ++i)
          if (auto w = dynamic_cast<QWidgetListItem*>(_layout->itemAt(i)->widget()))
-            widgets.push_back(w);
+            if (!onlySelected || w->isSelected())
+               widgets.push_back(w);
 
       return widgets;
+   }
+
+   std::vector<QWidgetListItem*> QWidgetListWidget::getSelectedItems() const
+   {
+      return getItems(true);
    }
 
    /////////////////////////////////////////////////////////////////////////

@@ -36,7 +36,10 @@ namespace QtAdditions
       void removeItem(QWidgetListItem* item);
 
       // Retrieve all widget items kept directly in this list widget.
-      std::vector<QWidgetListItem*> getItems() const;
+      std::vector<QWidgetListItem*> getItems(bool onlySelected = false) const;
+
+      // Retrieve all selected widget items kept directly in this list widget.
+      std::vector<QWidgetListItem*> getSelectedItems() const;
 
    protected:
       virtual QWidgetListItem* cloneItem(QWidgetListItem*) const;
