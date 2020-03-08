@@ -10,6 +10,7 @@ namespace QtAdditions
    {
       QPalette _DefaultBackground;
       QPalette _HighBackground;
+      QPalette _SelectedBackground;
 
       once_flag initPalettes;
 
@@ -25,12 +26,16 @@ namespace QtAdditions
       call_once(initPalettes, [self = this]()
       {
          _DefaultBackground = self->palette();
+
          _HighBackground = self->palette();
          _HighBackground.setColor(QPalette::ColorRole::Base, _HighBackground.color(QPalette::Highlight).lighter(210));
+
+         _SelectedBackground = self->palette();
+         _SelectedBackground.setColor(QPalette::ColorRole::Base, _SelectedBackground.color(QPalette::Highlight));
       });
    }
 
-   QWidgetListItem* QWidgetListItem::Clone() const
+   QWidgetListItem* QWidgetListItem::clone() const
    {
       return new QWidgetListItem;
    }
@@ -53,7 +58,7 @@ namespace QtAdditions
       {
          if (_HighlightedItems.size() > 0)
          {
-            _HighlightedItems.back()->setPalette(_DefaultBackground);
+            _HighlightedItems.back()->setPalette(_HighlightedItems.back()->_selected ? _SelectedBackground : _DefaultBackground);
             _HighlightedItems.back()->update();
          }
 
@@ -62,7 +67,7 @@ namespace QtAdditions
       }
       else
       {
-         setPalette(_DefaultBackground);
+         setPalette(_selected ? _SelectedBackground : _DefaultBackground);
          auto pos = std::find(_HighlightedItems.begin(), _HighlightedItems.end(), this);
          if (pos != _HighlightedItems.end())
             _HighlightedItems.erase(pos);

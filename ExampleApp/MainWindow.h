@@ -21,13 +21,13 @@ namespace ExampleApp
 
    protected:
       // Create the UI elements.
-      void BuildUI();
+      void buildUI();
 
       // Connect the signals of the UI elements.
-      void ConnectUI();
+      void connectUI();
 
       // Fill the UI with the intial data.
-      void FillUI();
+      void fillUI();
 
       // UI elements.
       QWidgetListWidget* _list = nullptr;

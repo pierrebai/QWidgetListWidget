@@ -27,31 +27,32 @@ namespace QtAdditions
       QWidgetListWidget(ListModifiedCallbackFunction modifCallback = {}, bool stretch = true, QWidget * parent = nullptr);
 
       // Clears the list panel of all items.
-      void Clear();
+      void clear();
 
       // Add a widget item.
-      QWidgetListItem* AddItem(QWidgetListItem* item, int index = -1);
+      QWidgetListItem* addItem(QWidgetListItem* item, int index = -1);
 
       // Remove a widget item.
-      void RemoveItem(QWidgetListItem* item);
+      void removeItem(QWidgetListItem* item);
 
       // Retrieve all widget items kept directly in this list widget.
-      std::vector<QWidgetListItem*> GetItems() const;
+      std::vector<QWidgetListItem*> getItems() const;
 
    protected:
-      virtual QWidgetListItem* CloneItem(QWidgetListItem*) const;
+      virtual QWidgetListItem* cloneItem(QWidgetListItem*) const;
 
       void dragEnterEvent(QDragEnterEvent* event) override;
       void dragLeaveEvent(QDragLeaveEvent* event) override;
       void dragMoveEvent(QDragMoveEvent* event) override;
       void dropEvent(QDropEvent* event) override;
       void mousePressEvent(QMouseEvent* event) override;
+      void mouseReleaseEvent(QMouseEvent* event) override;
       void childEvent(QChildEvent* event) override;
 
-      QWidgetListItem* FindWidgetAt(const QPoint& pt) const;
+      QWidgetListItem* findWidgetAt(const QPoint& pt) const;
 
-      void UpdateDropHereLabel();
-      void PropagateMinimumWidth();
+      void updateDropHereLabel();
+      void propagateMinimumWidth();
 
       ListModifiedCallbackFunction _modifCallback;
       QVBoxLayout* _layout = nullptr;

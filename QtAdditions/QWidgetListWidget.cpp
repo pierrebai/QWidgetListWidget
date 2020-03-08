@@ -49,7 +49,7 @@ namespace QtAdditions
    //
    // Minimum size propagation.
 
-   void QWidgetListWidget::PropagateMinimumWidth()
+   void QWidgetListWidget::propagateMinimumWidth()
    {
       int minWidthSoFar = 0;
       QWidget* widget = this;
@@ -59,7 +59,7 @@ namespace QtAdditions
          {
             if (auto list = dynamic_cast<QWidgetListWidget*>(scroll->widget()))
             {
-               auto items = list->GetItems();
+               auto items = list->getItems();
                auto maxMinWidthPos = max_element(items.begin(), items.end(), [](const QWidgetListItem* lhs, const QWidgetListItem* rhs)
                {
                   return lhs->sizeHint().width() < rhs->sizeHint().width();
@@ -80,16 +80,16 @@ namespace QtAdditions
    //
    // Items management.
 
-   void QWidgetListWidget::Clear()
+   void QWidgetListWidget::clear()
    {
-      for (auto child : GetItems())
+      for (auto child : getItems())
          delete child;
 
       if (_modifCallback)
          _modifCallback(this);
    }
 
-   QWidgetListItem* QWidgetListWidget::AddItem(QWidgetListItem* item, int index)
+   QWidgetListItem* QWidgetListWidget::addItem(QWidgetListItem* item, int index)
    {
       if (!item)
          return nullptr;
@@ -104,7 +104,7 @@ namespace QtAdditions
 
       setMinimumWidth(max(minimumWidth(), item->sizeHint().width() + contentsMargins().left() + contentsMargins().right()));
 
-      PropagateMinimumWidth();
+      propagateMinimumWidth();
 
       if (_modifCallback)
          _modifCallback(this);
@@ -112,7 +112,7 @@ namespace QtAdditions
       return item;
    }
 
-   void QWidgetListWidget::RemoveItem(QWidgetListItem* item)
+   void QWidgetListWidget::removeItem(QWidgetListItem* item)
    {
       item->setParent(nullptr);
       _layout->removeWidget(item);
@@ -122,7 +122,7 @@ namespace QtAdditions
          _modifCallback(this);
    }
 
-   vector<QWidgetListItem*> QWidgetListWidget::GetItems() const
+   vector<QWidgetListItem*> QWidgetListWidget::getItems() const
    {
       vector<QWidgetListItem*> widgets;
 
@@ -138,12 +138,12 @@ namespace QtAdditions
    //
    // Drag and drop.
 
-   QWidgetListItem* QWidgetListWidget::CloneItem(QWidgetListItem* item) const
+   QWidgetListItem* QWidgetListWidget::cloneItem(QWidgetListItem* item) const
    {
       if (!item)
          return nullptr;
 
-      return item->Clone();
+      return item->clone();
    }
 
    void QWidgetListWidget::dragEnterEvent(QDragEnterEvent* event)
@@ -185,7 +185,7 @@ namespace QtAdditions
          return event->ignore();
 
       const QPoint position = event->pos();
-      QWidgetListItem* dropOn = FindWidgetAt(position);
+      QWidgetListItem* dropOn = findWidgetAt(position);
       const bool dropAbove = dropOn ? (position.y() < dropOn->pos().y() + dropOn->size().height() / 2) : false;
       const int dropIndexOffset = dropAbove ? 0 : 1;
       const int dropOnIndex = dropOn ? _layout->indexOf(dropOn) : -1000;
@@ -203,18 +203,22 @@ namespace QtAdditions
             const int newIndex = dropOnIndex + dropIndexOffset - dropAdjust;
             movedWidget->setParent(nullptr);
             _layout->removeWidget(movedWidget);
-            AddItem(movedWidget, newIndex);
+            addItem(movedWidget, newIndex);
+         }
+         else
+         {
+            movedWidget->select(!movedWidget->isSelected());
          }
          event->setDropAction(Qt::MoveAction);
          event->accept();
       }
       else
       {
-         auto newWidget = CloneItem(mime->Widget);
+         auto newWidget = cloneItem(mime->Widget);
          if (newWidget)
          {
             const int newIndex = dropOnIndex + dropIndexOffset;
-            AddItem(newWidget, newIndex);
+            addItem(newWidget, newIndex);
          }
          event->acceptProposedAction();
       }
@@ -222,7 +226,7 @@ namespace QtAdditions
 
    void QWidgetListWidget::mousePressEvent(QMouseEvent* event)
    {
-      QWidgetListItem* widget = FindWidgetAt(event->pos());
+      QWidgetListItem* widget = findWidgetAt(event->pos());
       if (!widget)
          return;
 
@@ -247,7 +251,16 @@ namespace QtAdditions
          Qt::DropAction dropAction = drag->exec(Qt::CopyAction, Qt::CopyAction);
    }
 
-   QWidgetListItem* QWidgetListWidget::FindWidgetAt(const QPoint& pt) const
+   void QWidgetListWidget::mouseReleaseEvent(QMouseEvent* event)
+   {
+      QWidgetListItem* widget = findWidgetAt(event->pos());
+      if (!widget)
+         return;
+
+      widget->select(!widget->isSelected());
+   }
+
+   QWidgetListItem* QWidgetListWidget::findWidgetAt(const QPoint& pt) const
    {
       for (auto child = childAt(pt); child; child = child->parentWidget())
          if (auto widget = dynamic_cast<QWidgetListItem*>(child))
@@ -264,18 +277,18 @@ namespace QtAdditions
       {
          QTimer::singleShot(1, [self = this]()
          {
-            self->UpdateDropHereLabel();
-            self->PropagateMinimumWidth();
+            self->updateDropHereLabel();
+            self->propagateMinimumWidth();
          });
       }
    }
 
-   void QWidgetListWidget::UpdateDropHereLabel()
+   void QWidgetListWidget::updateDropHereLabel()
    {
       if (!_dropHere)
          return;
 
-      _dropHere->setVisible(GetItems().size() <= 0);
+      _dropHere->setVisible(getItems().size() <= 0);
    }
 }
 

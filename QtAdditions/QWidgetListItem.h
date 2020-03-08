@@ -13,7 +13,10 @@ namespace QtAdditions
    {
       QWidgetListItem(QWidget* parent = nullptr);
 
-      virtual QWidgetListItem* Clone() const;
+      bool isSelected() const { return _selected; }
+      void select(bool sel) { _selected = sel; update(); }
+
+      virtual QWidgetListItem* clone() const;
 
    protected:
       void enterEvent(QEvent* event) override;
@@ -21,5 +24,6 @@ namespace QtAdditions
 
       void HighlightBackground(bool high);
 
+      bool _selected = false;
    };
 }

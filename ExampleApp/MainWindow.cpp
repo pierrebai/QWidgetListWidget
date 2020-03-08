@@ -12,16 +12,16 @@ namespace ExampleApp
 
    MainWindow::MainWindow()
    {
-      BuildUI();
-      FillUI();
-      ConnectUI();
+      buildUI();
+      fillUI();
+      connectUI();
    }
 
    /////////////////////////////////////////////////////////////////////////
    //
    // Create the UI elements.
 
-   void MainWindow::BuildUI()
+   void MainWindow::buildUI()
    {
       _list = new QWidgetListWidget;
       _list->setAcceptDrops(true);
@@ -34,7 +34,7 @@ namespace ExampleApp
    //
    // Connect the signals of the UI elements.
 
-   void MainWindow::ConnectUI()
+   void MainWindow::connectUI()
    {
    }
 
@@ -42,9 +42,9 @@ namespace ExampleApp
    //
    // Fill the UI with the intial data.
 
-   void MainWindow::FillUI()
+   void MainWindow::fillUI()
    {
       for (int i = 0; i < 10; ++i)
-         _list->AddItem(new ExampleListItem(QString::asprintf("Item #%d", i+1)));
+         _list->addItem(new ExampleListItem(QString::asprintf("Item #%d", i+1)));
    }
 }

@@ -36,7 +36,7 @@ namespace ExampleApp
       container_layout->addWidget(_includeBox);
    }
 
-   ExampleListItem* ExampleListItem::Clone() const
+   ExampleListItem* ExampleListItem::clone() const
    {
       auto newItem = new ExampleListItem(_textEdit->text(), _includeBox->isChecked());
       return newItem;

@@ -18,7 +18,7 @@ namespace ExampleApp
    {
       ExampleListItem(const QString& text, bool isChecked = false);
 
-      ExampleListItem* Clone() const override;
+      ExampleListItem* clone() const override;
 
    private:
       QLabel*      _nameLabel  = nullptr;
