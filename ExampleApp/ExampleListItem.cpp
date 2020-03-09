@@ -1,6 +1,8 @@
 #include "ExampleListItem.h"
 
 #include <QtWidgets/qboxlayout.h>
+#include <QtGui/qpainter.h>
+#include <QtGui/qpixmap.h>
 
 namespace ExampleApp
 {
@@ -12,10 +14,26 @@ namespace ExampleApp
       setToolTip("example item");
       setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
-      auto container_layout = new QVBoxLayout(this);
+      auto top_layout = new QHBoxLayout(this);
+      top_layout->setMargin(0);
+      setLayout(top_layout);
+
+      auto pixmap = QPixmap(8, 32);
+      {
+         QPainter painter(&pixmap);
+         painter.fillRect(pixmap.rect().adjusted(0, 0, 0, 0), QColor(208, 208, 208, 128));
+      }
+      auto handle = new QLabel;
+      handle->setPixmap(pixmap);
+      handle->setScaledContents(true);
+      handle->setSizePolicy(QSizePolicy(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Preferred));
+      handle->setMargin(2);
+      top_layout->addWidget(handle);
+
+      auto container_layout = new QVBoxLayout;
       container_layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
       container_layout->setMargin(4);
-      setLayout(container_layout);
+      top_layout->addLayout(container_layout);
 
       auto name_layout = new QHBoxLayout;
       name_layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
