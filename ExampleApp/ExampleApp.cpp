@@ -6,6 +6,10 @@ static HINSTANCE appInstance;
 
 namespace ExampleApp
 {
+   /////////////////////////////////////////////////////////////////////////
+   //
+   // Creates the Qt App and a main window.
+
    int App(int argc, char** argv)
    {
       QScopedPointer<QApplication> app(new QApplication(argc, argv));

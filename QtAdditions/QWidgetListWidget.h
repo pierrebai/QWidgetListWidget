@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef QT_ADDITIONS_QWIDGET_LIST_WIDGET_H
+#define QT_ADDITIONS_QWIDGET_LIST_WIDGET_H
+
 #include "QWidgetListItem.h"
 
 #include <QtWidgets/qframe.h>
@@ -42,8 +45,14 @@ namespace QtAdditions
       std::vector<QWidgetListItem*> getSelectedItems() const;
 
    protected:
+      // Cloning an item when dropping into another list widget.
+      //
+      // Made virtual in case the simple clone() function on the item
+      // is not sufficient and other more complicated processing is
+      // needed to create a copy of an item.
       virtual QWidgetListItem* cloneItem(QWidgetListItem*) const;
 
+      // Drag-and-drop support.
       void dragEnterEvent(QDragEnterEvent* event) override;
       void dragLeaveEvent(QDragLeaveEvent* event) override;
       void dragMoveEvent(QDragMoveEvent* event) override;
@@ -52,9 +61,14 @@ namespace QtAdditions
       void mouseReleaseEvent(QMouseEvent* event) override;
       void childEvent(QChildEvent* event) override;
 
+      // Helper to find the item under the mouse, for drag-and-drop.
       QWidgetListItem* findWidgetAt(const QPoint& pt) const;
 
+      // Provides a drop-here label when the list is empty.
+      // Not shown if drops (from drag-and-drop) are not enabled.
       void updateDropHereLabel();
+
+      // Ensure the widget has enough width to show its items.
       void propagateMinimumWidth();
 
       ListModifiedCallbackFunction _modifCallback;
@@ -62,3 +76,5 @@ namespace QtAdditions
       QLabel* _dropHere = nullptr;
    };
 }
+
+#endif

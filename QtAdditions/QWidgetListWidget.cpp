@@ -39,6 +39,7 @@ namespace QtAdditions
 
       _dropHere = new QLabel(QString("Drop items here."));
       _dropHere->setForegroundRole(QPalette::ColorRole::Mid);
+      _dropHere->setVisible(false);
       _layout->addWidget(_dropHere);
 
       if (stretch)
@@ -294,7 +295,7 @@ namespace QtAdditions
       if (!_dropHere)
          return;
 
-      _dropHere->setVisible(getItems().size() <= 0);
+      _dropHere->setVisible(acceptDrops() && getItems().size() <= 0);
    }
 }
 

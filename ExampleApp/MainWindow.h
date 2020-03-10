@@ -13,6 +13,12 @@ namespace ExampleApp
    using QWidgetScrollListWidget = QtAdditions::QWidgetScrollListWidget;
    using QWidgetListWidget = QtAdditions::QWidgetListWidget;
 
+   /////////////////////////////////////////////////////////////////////////
+   //
+   // Main window of the example.
+   //
+   // Contains two list widgets that can exchange items via drag-and-drop.
+
    class MainWindow : public QMainWindow
    {
    public:

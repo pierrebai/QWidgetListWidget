@@ -14,6 +14,14 @@ namespace ExampleApp
 {
    using QWidgetListItem = QtAdditions::QWidgetListItem;
 
+   /////////////////////////////////////////////////////////////////////////
+   //
+   // Example of an item put in the QWidgetListWidget.
+   //
+   // It's a normal widget, except in needs a clone() method to enable
+   // drag-and-drop. If you dont'want to support drag-and-drop, then clone()
+   // is not needed.
+
    struct ExampleListItem : QWidgetListItem
    {
       ExampleListItem(const QString& text, bool isChecked = false);

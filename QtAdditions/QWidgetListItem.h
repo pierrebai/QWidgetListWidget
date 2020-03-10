@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef QT_ADDITIONS_QWIDGET_LIST_ITEM_H
+#define QT_ADDITIONS_QWIDGET_LIST_ITEM_H
+
 #include <QtWidgets/qwidget.h>
 #include <QtWidgets/qscrollarea.h>
 
@@ -13,12 +16,15 @@ namespace QtAdditions
    {
       QWidgetListItem(QWidget* parent = nullptr);
 
+      // Selection.
       bool isSelected() const { return _selected; }
       void select(bool sel) { _selected = sel; update(); }
 
+      // Item cloning for drag-and-drop.
       virtual QWidgetListItem* clone() const;
 
    protected:
+      // Used to draw highlights.
       void enterEvent(QEvent* event) override;
       void leaveEvent(QEvent* event) override;
 
@@ -27,3 +33,5 @@ namespace QtAdditions
       bool _selected = false;
    };
 }
+
+#endif
