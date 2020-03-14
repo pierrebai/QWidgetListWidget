@@ -81,6 +81,9 @@ namespace ExampleApp
       _includeBox = new QCheckBox("Check");
       _includeBox->setChecked(isChecked);
       container_layout->addWidget(_includeBox);
+
+      // Add this when adding to a horizontal list.
+      // container_layout->addStretch(0);
    }
 
    ExampleListItem* ExampleListItem::clone() const

@@ -2,7 +2,6 @@
 #include "QWidgetScrollListWidget.h"
 #include "QWidgetListMimeData.h"
 
-#include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qlayout.h>
 #include <QtWidgets/qlabel.h>
 
@@ -22,7 +21,7 @@ namespace QtAdditions
    //
    // Widget list panel.
 
-   QWidgetListWidget::QWidgetListWidget(ListModifiedCallbackFunction modifCallback, bool stretch, QWidget* parent)
+   QWidgetListWidget::QWidgetListWidget(ListModifiedCallbackFunction modifCallback, bool stretch, QBoxLayout::Direction dir, QWidget* parent)
    : QFrame(parent), _modifCallback(modifCallback)
    {
       setBackgroundRole(QPalette::ColorRole::Base);
@@ -31,7 +30,7 @@ namespace QtAdditions
       if (!stretch)
          setFrameStyle(QFrame::Box);
 
-      _layout = new QVBoxLayout;
+      _layout = new QBoxLayout(dir);
       _layout->setSizeConstraint(QLayout::SetMinimumSize);
       _layout->setMargin(2);
       _layout->setSpacing(0);
@@ -50,9 +49,15 @@ namespace QtAdditions
    //
    // Minimum size propagation.
 
-   void QWidgetListWidget::propagateMinimumWidth()
+   bool QWidgetListWidget::isVertical() const
    {
-      int minWidthSoFar = 0;
+      const auto dir = _layout->direction();
+      return dir == QBoxLayout::Direction::TopToBottom || dir == QBoxLayout::Direction::BottomToTop;
+   }
+
+   void QWidgetListWidget::propagateMinimumDimension()
+   {
+      int minSoFar = 0;
       QWidget* widget = this;
       while (widget)
       {
@@ -61,15 +66,34 @@ namespace QtAdditions
             if (auto list = dynamic_cast<QWidgetListWidget*>(scroll->widget()))
             {
                auto items = list->getItems();
-               auto maxMinWidthPos = max_element(items.begin(), items.end(), [](const QWidgetListItem* lhs, const QWidgetListItem* rhs)
+               if (isVertical())
                {
-                  return lhs->sizeHint().width() < rhs->sizeHint().width();
-               });
-               if (maxMinWidthPos != items.end())
+                  auto maxMinWidthPos = max_element(items.begin(), items.end(), [](const QWidgetListItem* lhs, const QWidgetListItem* rhs)
+                  {
+                     return lhs->sizeHint().width() < rhs->sizeHint().width();
+                  });
+
+                  if (maxMinWidthPos != items.end())
+                  {
+                     const int newWidth = (*maxMinWidthPos)->sizeHint().width() + scroll->contentsMargins().left() + scroll->contentsMargins().right();
+                     minSoFar = max(minSoFar, newWidth);
+                     scroll->setMinimumWidth(minSoFar);
+                  }
+               }
+               else
                {
-                  const int newWidth = (*maxMinWidthPos)->sizeHint().width() + scroll->contentsMargins().left() + scroll->contentsMargins().right();
-                  minWidthSoFar = max(minWidthSoFar, newWidth);
-                  scroll->setMinimumWidth(minWidthSoFar);
+                  auto maxMinHeightPos = max_element(items.begin(), items.end(), [](const QWidgetListItem* lhs, const QWidgetListItem* rhs)
+                  {
+                     return lhs->sizeHint().height() < rhs->sizeHint().height();
+                  });
+
+                  if (maxMinHeightPos != items.end())
+                  {
+                     const int newHeight = (*maxMinHeightPos)->sizeHint().height() + scroll->contentsMargins().left() + scroll->contentsMargins().right();
+                     minSoFar = max(minSoFar, newHeight);
+                     scroll->setMinimumHeight(minSoFar);
+                  }
+
                }
             }
          }
@@ -105,7 +129,7 @@ namespace QtAdditions
 
       setMinimumWidth(max(minimumWidth(), item->sizeHint().width() + contentsMargins().left() + contentsMargins().right()));
 
-      propagateMinimumWidth();
+      propagateMinimumDimension();
 
       if (_modifCallback)
          _modifCallback(this);
@@ -285,7 +309,7 @@ namespace QtAdditions
          QTimer::singleShot(1, [self = this]()
          {
             self->updateDropHereLabel();
-            self->propagateMinimumWidth();
+            self->propagateMinimumDimension();
          });
       }
    }

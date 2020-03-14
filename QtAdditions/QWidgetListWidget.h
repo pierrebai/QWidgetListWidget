@@ -6,6 +6,7 @@
 #include "QWidgetListItem.h"
 
 #include <QtWidgets/qframe.h>
+#include <QtWidgets/qboxlayout.h>
 
 #include <functional>
 
@@ -27,7 +28,10 @@ namespace QtAdditions
       using ListModifiedCallbackFunction = std::function<void(QWidgetListWidget * list)>;;
 
       // Create a widget list widget.
-      QWidgetListWidget(ListModifiedCallbackFunction modifCallback = {}, bool stretch = true, QWidget * parent = nullptr);
+      QWidgetListWidget(ListModifiedCallbackFunction modifCallback = {}, bool stretch = true, QBoxLayout::Direction dir = QBoxLayout::Direction::TopToBottom, QWidget * parent = nullptr);
+
+      // Check if the list is vertical or horizontal.
+      bool isVertical() const;
 
       // Clears the list panel of all items.
       void clear();
@@ -69,10 +73,10 @@ namespace QtAdditions
       void updateDropHereLabel();
 
       // Ensure the widget has enough width to show its items.
-      void propagateMinimumWidth();
+      void propagateMinimumDimension();
 
       ListModifiedCallbackFunction _modifCallback;
-      QVBoxLayout* _layout = nullptr;
+      QBoxLayout* _layout = nullptr;
       QLabel* _dropHere = nullptr;
    };
 }

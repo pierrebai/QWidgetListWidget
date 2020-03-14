@@ -29,12 +29,14 @@ namespace ExampleApp
       auto layout = new QHBoxLayout;
       container->setLayout(layout);
 
-      _list1 = new QWidgetListWidget;
+      _list1 = new QWidgetListWidget(nullptr, true, QBoxLayout::Direction::TopToBottom);
+      //_list1 = new QWidgetListWidget(nullptr, true, QBoxLayout::Direction::LeftToRight);
       _list1->setAcceptDrops(true);
       _scrollList1 = new QWidgetScrollListWidget(_list1);
       layout->addWidget(_scrollList1);
 
-      _list2 = new QWidgetListWidget;
+      _list2 = new QWidgetListWidget(nullptr, true, QBoxLayout::Direction::TopToBottom);
+      //_list2 = new QWidgetListWidget(nullptr, true, QBoxLayout::Direction::LeftToRight);
       _list2->setAcceptDrops(true);
       _scrollList2 = new QWidgetScrollListWidget(_list2);
       layout->addWidget(_scrollList2);

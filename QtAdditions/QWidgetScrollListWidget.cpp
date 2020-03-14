@@ -1,4 +1,5 @@
 #include "QWidgetScrollListWidget.h"
+#include "QWidgetListWidget.h"
 #include "QWidgetListMimeData.h"
 
 namespace QtAdditions
@@ -7,10 +8,26 @@ namespace QtAdditions
    : QScrollArea(parent)
    {
       setWidget(widget);
-      setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-      setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+      bool isVertical = true;
+      if (auto list = dynamic_cast<QWidgetListWidget*>(widget))
+         if (!list->isVertical())
+            isVertical = false;
+
+      if (isVertical)
+      {
+         setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+         setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding));
+      }
+      else
+      {
+         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+         setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+         setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
+      }
+
       setWidgetResizable(true);
-      setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding));
       setSizeAdjustPolicy(SizeAdjustPolicy::AdjustToContents);
    }
 
