@@ -25,7 +25,7 @@ namespace QtAdditions
    struct QWidgetListWidget : public QFrame
    {
       // Callback signature when the list was modified: added or remove an item.
-      using ListModifiedCallbackFunction = std::function<void(QWidgetListWidget * list)>;;
+      using ListModifiedCallbackFunction = std::function<void(QWidgetListWidget * list)>;
 
       // Create a widget list widget.
       QWidgetListWidget(ListModifiedCallbackFunction modifCallback = {}, bool stretch = true, QBoxLayout::Direction dir = QBoxLayout::Direction::TopToBottom, QWidget * parent = nullptr);

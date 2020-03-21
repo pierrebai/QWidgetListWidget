@@ -14,6 +14,7 @@ namespace QtAdditions
 
    struct QWidgetListItem : QWidget
    {
+      // Create an item.
       QWidgetListItem(QWidget* parent = nullptr);
 
       // Selection.
