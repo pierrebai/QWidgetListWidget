@@ -22,7 +22,7 @@ target_link_libraries(ExampleApp PUBLIC
 target_compile_features(ExampleApp PUBLIC cxx_std_20)
 
 target_include_directories(ExampleApp PUBLIC
-   "${PROJECT_SOURCE_DIR}/QtAdditions"
+   "${PROJECT_SOURCE_DIR}/QtAdditions/inc"
 )
 
 add_custom_command(TARGET ExampleApp POST_BUILD
