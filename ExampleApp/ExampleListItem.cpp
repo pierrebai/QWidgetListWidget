@@ -4,7 +4,7 @@
 #include <QtGui/qpainter.h>
 #include <QtGui/qpixmap.h>
 
-namespace ExampleApp
+namespace dak::ExampleApp
 {
    using namespace std;
    using namespace QtAdditions;

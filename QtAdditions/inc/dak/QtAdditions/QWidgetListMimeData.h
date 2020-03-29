@@ -6,7 +6,7 @@
 #include <QtCore/qmimedata.h>
 #include <QtCore/qpoint.h>
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    struct QWidgetListItem;
 

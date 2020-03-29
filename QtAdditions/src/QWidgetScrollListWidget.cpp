@@ -1,8 +1,8 @@
-#include "QWidgetScrollListWidget.h"
-#include "QWidgetListWidget.h"
-#include "QWidgetListMimeData.h"
+#include "dak/QtAdditions/QWidgetScrollListWidget.h"
+#include "dak/QtAdditions/QWidgetListWidget.h"
+#include "dak/QtAdditions/QWidgetListMimeData.h"
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    QWidgetScrollListWidget::QWidgetScrollListWidget(QWidget* widget, QWidget* parent)
    : QScrollArea(parent)

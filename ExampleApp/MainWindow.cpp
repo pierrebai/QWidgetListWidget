@@ -3,7 +3,7 @@
 
 #include <QtWidgets/qboxlayout.h>
 
-namespace ExampleApp
+namespace dak::ExampleApp
 {
    using namespace QtAdditions;
    using namespace std;

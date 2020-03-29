@@ -3,12 +3,12 @@
 #ifndef EXAMPLE_APP_MAIN_WINDOW_H
 #define EXAMPLE_APP_MAIN_WINDOW_H
 
-#include "QWidgetScrollListWidget.h"
-#include "QWidgetListWidget.h"
+#include "dak/QtAdditions/QWidgetScrollListWidget.h"
+#include "dak/QtAdditions/QWidgetListWidget.h"
 
 #include <QtWidgets/qmainwindow.h>
 
-namespace ExampleApp
+namespace dak::ExampleApp
 {
    using QWidgetScrollListWidget = QtAdditions::QWidgetScrollListWidget;
    using QWidgetListWidget = QtAdditions::QWidgetListWidget;

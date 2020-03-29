@@ -6,7 +6,7 @@
 #include <QtWidgets/qwidget.h>
 #include <QtWidgets/qscrollarea.h>
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    /////////////////////////////////////////////////////////////////////////
    //

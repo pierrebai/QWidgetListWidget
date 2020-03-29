@@ -3,7 +3,7 @@
 #ifndef QT_ADDITIONS_QWIDGET_LIST_WIDGET_H
 #define QT_ADDITIONS_QWIDGET_LIST_WIDGET_H
 
-#include "QWidgetListItem.h"
+#include "dak/QtAdditions/QWidgetListItem.h"
 
 #include <QtWidgets/qframe.h>
 #include <QtWidgets/qboxlayout.h>
@@ -16,7 +16,7 @@ class QMouseEvent;
 class QVBoxLayout;
 class QLabel;
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    /////////////////////////////////////////////////////////////////////////
    //

@@ -4,7 +4,7 @@
 
 static HINSTANCE appInstance;
 
-namespace ExampleApp
+namespace dak::ExampleApp
 {
    /////////////////////////////////////////////////////////////////////////
    //
@@ -25,7 +25,7 @@ namespace ExampleApp
 
 int main(int argc, char** argv)
 {
-   return ExampleApp::App(argc, argv);
+   return dak::ExampleApp::App(argc, argv);
 }
 
 int wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, wchar_t* lpCmdLine, int nCmdShow)

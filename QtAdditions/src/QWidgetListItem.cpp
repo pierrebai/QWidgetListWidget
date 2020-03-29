@@ -1,8 +1,8 @@
-#include "QWidgetListItem.h"
+#include "dak/QtAdditions/QWidgetListItem.h"
 
 #include <mutex>
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    using namespace std;
 

@@ -1,6 +1,6 @@
-#include "QWidgetListWidget.h"
-#include "QWidgetScrollListWidget.h"
-#include "QWidgetListMimeData.h"
+#include "dak/QtAdditions/QWidgetListWidget.h"
+#include "dak/QtAdditions/QWidgetScrollListWidget.h"
+#include "dak/QtAdditions/QWidgetListMimeData.h"
 
 #include <QtWidgets/qlayout.h>
 #include <QtWidgets/qlabel.h>
@@ -13,7 +13,7 @@
 
 #include <algorithm>
 
-namespace QtAdditions
+namespace dak::QtAdditions
 {
    using namespace std;
 
