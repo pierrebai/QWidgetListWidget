@@ -78,6 +78,8 @@ namespace dak::QtAdditions
       ListModifiedCallbackFunction _modifCallback;
       QBoxLayout* _layout = nullptr;
       QLabel* _dropHere = nullptr;
+
+      Q_OBJECT;
    };
 }
 

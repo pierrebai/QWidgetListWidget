@@ -35,6 +35,13 @@ namespace dak::QtAdditions
       });
    }
 
+   QWidgetListItem::~QWidgetListItem()
+   {
+      auto pos = std::find(_HighlightedItems.begin(), _HighlightedItems.end(), this);
+      if (pos != _HighlightedItems.end())
+         _HighlightedItems.erase(pos);
+   }
+
    QWidgetListItem* QWidgetListItem::clone() const
    {
       return new QWidgetListItem;

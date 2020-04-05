@@ -4,7 +4,6 @@
 #define QT_ADDITIONS_QWIDGET_LIST_ITEM_H
 
 #include <QtWidgets/qwidget.h>
-#include <QtWidgets/qscrollarea.h>
 
 namespace dak::QtAdditions
 {
@@ -16,6 +15,7 @@ namespace dak::QtAdditions
    {
       // Create an item.
       QWidgetListItem(QWidget* parent = nullptr);
+      ~QWidgetListItem();
 
       // Selection.
       bool isSelected() const { return _selected; }
@@ -32,6 +32,8 @@ namespace dak::QtAdditions
       void HighlightBackground(bool high);
 
       bool _selected = false;
+
+      Q_OBJECT;
    };
 }
 

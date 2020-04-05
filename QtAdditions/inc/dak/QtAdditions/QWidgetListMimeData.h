@@ -20,6 +20,8 @@ namespace dak::QtAdditions
 
       QWidgetListItem* Widget = nullptr;
       QPoint HotSpot;
+
+      Q_OBJECT;
    };
 }
 

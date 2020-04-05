@@ -15,7 +15,7 @@ add_executable(ExampleApp WIN32
 )
 
 target_link_libraries(ExampleApp PUBLIC
-   QtAdditions
+   QWidgetListWidget
    Qt5::Widgets Qt5::Gui Qt5::Core
 )
 
