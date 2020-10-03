@@ -15,14 +15,16 @@ add_executable(ExampleApp WIN32
 )
 
 target_link_libraries(ExampleApp PUBLIC
-   QWidgetListWidget
+   QtAdditions
    Qt5::Widgets Qt5::Gui Qt5::Core
 )
 
-target_compile_features(ExampleApp PUBLIC cxx_std_20)
+target_compile_features(ExampleApp PUBLIC
+   cxx_std_20
+)
 
 target_include_directories(ExampleApp PUBLIC
-   "${PROJECT_SOURCE_DIR}/QtAdditions/inc"
+   "${PROJECT_SOURCE_DIR}/QtAdditions/include"
 )
 
 add_custom_command(TARGET ExampleApp POST_BUILD

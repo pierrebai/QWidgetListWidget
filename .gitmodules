@@ -1,0 +1,3 @@
+[submodule "QtAdditions"]
+	path = QtAdditions
+	url = https://github.com/pierrebai/QtAdditions.git
