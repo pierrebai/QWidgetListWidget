@@ -1,7 +1,6 @@
 from PySide2.QtWidgets import QWidget
 from PySide2.QtGui import QPalette
 
-fu = 0
 _DefaultBackground = False
 _HighBackground = False
 _SelectedBackground = False
@@ -18,7 +17,6 @@ class QWidgetListItem(QWidget):
         self.setBackgroundRole(QPalette.ColorRole.Base)
         self.setAutoFillBackground(True)
 
-        print(current_module.colores_initialized)
         if ~current_module.colores_initialized:
             current_module._DefaultBackground = self.palette()
             current_module._HighBackground = self.palette()
@@ -27,14 +25,14 @@ class QWidgetListItem(QWidget):
             current_module._SelectedBackground = self.palette()
             _SelectedBackground.setColor(QPalette.ColorRole.Base, current_module._SelectedBackground.color(QPalette.Highlight))
             current_module.colores_initialized = True
-        
+
 
     def __del__(self):
         self.remove_self_from_highlighted_items()
-    
+
     def clone(self):
         return QWidgetListItem(self.parent)
-    
+
     def enterEvent(self,event):
         super().enterEvent(event)
         self.highlight_background()
@@ -57,10 +55,10 @@ class QWidgetListItem(QWidget):
             else:
                 last_element.setPalette(_DefaultBackground)
             last_element.update()
-            
+
         self.setPalette(_SelectedBackground)
         _HighlightedItems.append(self)
-        
+
     def remove_highlighted_background(self):
         if self.is_selected:
             self.setPalette(_SelectedBackground)

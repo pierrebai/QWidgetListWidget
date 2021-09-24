@@ -5,7 +5,7 @@ from qWidgetListItem import QWidgetListItem
 
 class QWidgetListWidget(QFrame):
     def __init__(self,stretch = False, _dir = QBoxLayout.Direction.TopToBottom, parent : QWidget = None):
-        super().__init__(parent)        
+        super().__init__(parent)
         self.setBackgroundRole(QPalette.ColorRole.Base)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
         self.setMinimumSize(QSize(20, 20))
@@ -39,7 +39,7 @@ class QWidgetListWidget(QFrame):
             scroll = widget
             if self.isVertical:
                 dim = 'width'
-                set_min_dim = 'setMinimumWidth'            
+                set_min_dim = 'setMinimumWidth'
             else:
                 dim = 'height'
                 set_min_dim = 'setMinimumHeight'
@@ -53,7 +53,7 @@ class QWidgetListWidget(QFrame):
             getattr(scroll,set_min_dim)(current_dim)
 
             widget = widget.parentWidget()
-        
+
 
     def get_items(self,only_selected = False):
         widgets = []
@@ -87,7 +87,7 @@ class QWidgetListWidget(QFrame):
         item.setParent(None)
         layout.removeWidget(item)
         layout.update()
-        
+
     def get_selected_items(self):
         return self.get_items(only_selected = True)
-    
+

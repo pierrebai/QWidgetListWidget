@@ -26,19 +26,19 @@ class Grabber(QWidget):
         for y in range(offset,h - (offset+diagonal),diagonal):
             painter.drawLine(0 , y, w, y+diagonal)
 
-class ListItem(qWidgetListItem.QWidgetListItem):    
+class ListItem(qWidgetListItem.QWidgetListItem):
     def __init__(self,text = '', is_checked = False):
         super().__init__()
         self.init_text = text
         self.init_is_checked = is_checked
         self.setToolTip('example item')
         self.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Minimum)
-        
+
         # Horizontal Layout to contain the Grabber and the rest of the Gui
         top_layout = QHBoxLayout(self)
         top_layout.setMargin(0)
         self.setLayout(top_layout)
-        
+
         # Grabber to always give some area to grab for drag-and-drop.
         handle = self.create_grabber()
         top_layout.addWidget(handle)
@@ -63,7 +63,7 @@ class ListItem(qWidgetListItem.QWidgetListItem):
 
         # Add this when adding to a horizontal list.
         # container_layout.addStretch(0);
-                        
+
     def create_grabber(self):
         handle = Grabber()
         handle.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed,QSizePolicy.Policy.Preferred))
@@ -84,3 +84,4 @@ class ListItem(qWidgetListItem.QWidgetListItem):
 
     def clone(self):
         return ListItem( text = self.init_text, is_checked = self.init_is_checked )
+

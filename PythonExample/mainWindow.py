@@ -4,7 +4,7 @@ from qWidgetListItem import QWidgetListItem
 from qWidgetListWidget import QWidgetListWidget
 from qWidgetScrollListWidget import QWidgetScrollListWidget
 
-class MainWindow(QMainWindow):    
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         scroll_list_1 = self.buildUI()
@@ -28,14 +28,14 @@ class MainWindow(QMainWindow):
         layout.addWidget(scroll_list_1)
         layout.addWidget(scroll_list_2)
 
-        container.setLayout(layout)        
+        container.setLayout(layout)
         self.setCentralWidget(container)
 
         return scroll_list_1
-        
+
     def connectUI(self):
         pass
-    
+
     def fillUI(self,_list):
         for i in range(10):
             _list.add_item(ListItem('Item {}'.format(i+1)))
